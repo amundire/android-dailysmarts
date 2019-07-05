@@ -1,3 +1,8 @@
 <resources>
-    <string name="app_name">Daily_smarts</string>
+    <string name="app_name">Daily Smarts</string>
+    <string name="refresh">Refresh</string>
+    <string name="share_using">Share using: </string>
+    <string name="daily_quote">Daily Quote</string>
+    <string name="my_quotes">My Quotes</string>
+    <string name="no_internet">Internet connection lost/missing.</string>
 </resources>

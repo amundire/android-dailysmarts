@@ -33,13 +33,19 @@ public class QuotesAdapter extends ListAdapter<QuoteEntity, QuotesViewHolder> {
     private static final DiffUtil.ItemCallback<QuoteEntity> DIFF_CALLBACK = new DiffUtil.ItemCallback<QuoteEntity>() {
         @Override
         public boolean areItemsTheSame(@NonNull QuoteEntity oldItem, @NonNull QuoteEntity newItem) {
-            return oldItem.getUid() == newItem.getUid();
+            if(oldItem != null && newItem != null){
+                return oldItem.getUid() == newItem.getUid();
+            }
+            return false;
         }
 
         @Override
         public boolean areContentsTheSame(@NonNull QuoteEntity oldItem, @NonNull QuoteEntity newItem) {
-            return oldItem.getQuoteText().equals(newItem.getQuoteText()) &&
-                    oldItem.getQuoteAuthor().equals(newItem.getQuoteAuthor());
+            if(oldItem != null && newItem != null){
+                return oldItem.getQuoteText().equals(newItem.getQuoteText()) &&
+                        oldItem.getQuoteAuthor().equals(newItem.getQuoteAuthor());
+            }
+            return false;
         }
     };
 

@@ -47,7 +47,7 @@ public class DailyQuoteFragment extends Fragment {
         binding = DataBindingUtil.inflate(
                 inflater, R.layout.fragment_daily_quote, container, false);
 
-        setupRetrofit();
+        initRetrofit();
 
         quoteEntity = new QuoteEntity();
 
@@ -68,7 +68,7 @@ public class DailyQuoteFragment extends Fragment {
         binding.swipeToRefresh.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                setupRetrofit();
+                initRetrofit();
             }
         });
         setHasOptionsMenu(true);
@@ -84,7 +84,7 @@ public class DailyQuoteFragment extends Fragment {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         if (item.getItemId() == R.id.action_refresh) {
-            setupRetrofit();
+            initRetrofit();
             return true;
         } else {
             return super.onOptionsItemSelected(item);
@@ -116,7 +116,7 @@ public class DailyQuoteFragment extends Fragment {
         startActivity(Intent.createChooser(sharingIntent, getResources().getString(R.string.share_using)));
     }
 
-    private void setupRetrofit() {
+    private void initRetrofit() {
         RetrofitWrapper quoteService = ViewModelProviders.of(this).get(RetrofitWrapper.class);
         quoteService.getQuotes().observe(this, new Observer<QuoteModel>() {
             @SuppressLint("NewApi")

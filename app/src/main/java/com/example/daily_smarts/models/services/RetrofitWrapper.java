@@ -1,11 +1,15 @@
 package com.example.daily_smarts.models.services;
 
 import android.app.Application;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.lifecycle.AndroidViewModel;
 import androidx.lifecycle.LiveData;
 import androidx.lifecycle.MutableLiveData;
+
+import com.example.daily_smarts.R;
+import com.google.android.material.snackbar.Snackbar;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -40,7 +44,6 @@ public class RetrofitWrapper extends AndroidViewModel {
         RetrofitService api = retrofit.create(RetrofitService.class);
         Call<QuoteModel> call = api.getQuote();
 
-
         call.enqueue(new Callback<QuoteModel>() {
             @Override
             public void onResponse(Call<QuoteModel> call, Response<QuoteModel> response) {
@@ -51,7 +54,7 @@ public class RetrofitWrapper extends AndroidViewModel {
 
             @Override
             public void onFailure(Call<QuoteModel> call, Throwable t) {
-
+                Log.e("Retrofit", "onFailure: " + t);
             }
         });
     }

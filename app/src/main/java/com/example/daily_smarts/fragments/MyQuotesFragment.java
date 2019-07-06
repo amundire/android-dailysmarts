@@ -56,7 +56,7 @@ public class MyQuotesFragment extends Fragment {
             }
 
             public void onShareClicked(QuoteEntity quoteEntity) {
-                String shareBody = quoteEntity.getQuoteText() + " " + quoteEntity.getQuoteAuthor();
+                String shareBody = quoteEntity.getQuoteText() + " -- " + quoteEntity.getQuoteAuthor();
                 Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
                 sharingIntent.setType("text/plain");
                 sharingIntent.putExtra(android.content.Intent.EXTRA_TEXT, shareBody);

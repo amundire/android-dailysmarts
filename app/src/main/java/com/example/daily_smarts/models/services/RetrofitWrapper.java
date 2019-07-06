@@ -13,14 +13,14 @@ import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
-public class QuoteViewModel extends AndroidViewModel {
+public class RetrofitWrapper extends AndroidViewModel {
 
     private static final String base_url = "http://api.forismatic.com/api/1.0/";
     private MutableLiveData<QuoteModel> singleQuote;
 
-    private static QuoteViewModel quoteService;
+    private static RetrofitWrapper quoteService;
 
-    public QuoteViewModel(@NonNull Application application) {
+    public RetrofitWrapper(@NonNull Application application) {
         super(application);
     }
 
@@ -37,14 +37,16 @@ public class QuoteViewModel extends AndroidViewModel {
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
 
-        QuoteApi api = retrofit.create(QuoteApi.class);
+        RetrofitService api = retrofit.create(RetrofitService.class);
         Call<QuoteModel> call = api.getQuote();
 
 
         call.enqueue(new Callback<QuoteModel>() {
             @Override
             public void onResponse(Call<QuoteModel> call, Response<QuoteModel> response) {
-                singleQuote.setValue(response.body());
+                if(response.body() != null){
+                    singleQuote.setValue(response.body());
+                }
             }
 
             @Override

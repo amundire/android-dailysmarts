@@ -54,5 +54,10 @@ public class QuoteEntity {
     public void setLiked(boolean liked) {
         isLiked = liked;
     }
+
+    @Override
+    public String toString(){
+        return getQuoteText() + "" + getQuoteAuthor();
+    }
 }
 

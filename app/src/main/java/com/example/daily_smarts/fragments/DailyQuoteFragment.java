@@ -21,7 +21,7 @@ import android.view.ViewGroup;
 
 import com.example.daily_smarts.models.local.QuoteEntity;
 import com.example.daily_smarts.models.services.QuoteModel;
-import com.example.daily_smarts.models.services.QuoteViewModel;
+import com.example.daily_smarts.models.services.RetrofitWrapper;
 import com.example.daily_smarts.R;
 import com.example.daily_smarts.databinding.FragmentDailyQuoteBinding;
 
@@ -61,7 +61,7 @@ public class DailyQuoteFragment extends Fragment {
         binding.quoteItem.btnShare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                launchSharingIntent();
+                shareIntent();
             }
         });
 
@@ -95,18 +95,20 @@ public class DailyQuoteFragment extends Fragment {
     @SuppressLint("NewApi")
     private void databaseActions() {
         quoteViewModel = ViewModelProviders.of(this).get(com.example.daily_smarts.models.local.QuoteViewModel.class);
-        if (quoteEntity.isLiked()) {
-            quoteViewModel.deleteSingle(quoteEntity);
-            binding.quoteItem.btnLike.setBackground(getResources().getDrawable(R.drawable.ic_favorite_border_black_24px));
-            quoteEntity.setLiked(false);
-        } else {
-            quoteViewModel.insertSingle(quoteEntity);
-            binding.quoteItem.btnLike.setBackground(getResources().getDrawable(R.drawable.ic_favorite_black_24px));
-            quoteEntity.setLiked(true);
+        if(quoteEntity != null){
+            if (quoteEntity.isLiked()) {
+                quoteViewModel.deleteSingle(quoteEntity);
+                binding.quoteItem.btnLike.setBackground(getResources().getDrawable(R.drawable.ic_favorite_border_black_24px));
+                quoteEntity.setLiked(false);
+            } else {
+                quoteViewModel.insertSingle(quoteEntity);
+                binding.quoteItem.btnLike.setBackground(getResources().getDrawable(R.drawable.ic_favorite_black_24px));
+                quoteEntity.setLiked(true);
+            }
         }
     }
 
-    private void launchSharingIntent() {
+    private void shareIntent() {
         String shareBody = quoteEntity.getQuoteText();
         Intent sharingIntent = new Intent(android.content.Intent.ACTION_SEND);
         sharingIntent.setType("text/plain");
@@ -115,7 +117,7 @@ public class DailyQuoteFragment extends Fragment {
     }
 
     private void setupRetrofit() {
-        QuoteViewModel quoteService = ViewModelProviders.of(this).get(QuoteViewModel.class);
+        RetrofitWrapper quoteService = ViewModelProviders.of(this).get(RetrofitWrapper.class);
         quoteService.getQuotes().observe(this, new Observer<QuoteModel>() {
             @SuppressLint("NewApi")
             @Override

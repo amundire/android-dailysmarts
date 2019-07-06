@@ -1,9 +1,12 @@
 package com.example.daily_smarts.adapters;
 
+import android.os.Build;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
+import androidx.annotation.RequiresApi;
 import androidx.databinding.DataBindingUtil;
 import androidx.recyclerview.widget.DiffUtil;
 import androidx.recyclerview.widget.ListAdapter;
@@ -14,6 +17,8 @@ import com.example.daily_smarts.databinding.QuoteItemBinding;
 import com.example.daily_smarts.models.local.QuoteViewModel;
 import com.example.daily_smarts.models.local.QuotesDao;
 import com.example.daily_smarts.models.local.QuotesRepository;
+
+import static android.content.ContentValues.TAG;
 
 public class QuotesAdapter extends ListAdapter<QuoteEntity, QuotesViewHolder> {
 
@@ -48,12 +53,17 @@ public class QuotesAdapter extends ListAdapter<QuoteEntity, QuotesViewHolder> {
         return quotesViewHolder;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN)
     @Override
     public void onBindViewHolder(@NonNull QuotesViewHolder holder, int position) {
         QuoteEntity currentQuote = getItem(position);
-        holder.binding.quoteTextView.setText(currentQuote.getQuoteText());
-        holder.binding.authorTextView.setText(currentQuote.getQuoteAuthor());
-        holder.setQuoteEntity(currentQuote);
+        if(currentQuote != null){
+            Log.e(TAG, currentQuote.toString());
+            holder.binding.quoteTextView.setText(currentQuote.getQuoteText());
+            holder.binding.authorTextView.setText(currentQuote.getQuoteAuthor());
+            holder.binding.btnLike.setBackgroundResource(R.drawable.ic_favorite_black_24px);
+            holder.setQuoteEntity(currentQuote);
+        }
     }
 
 

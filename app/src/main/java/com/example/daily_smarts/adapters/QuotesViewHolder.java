@@ -10,6 +10,7 @@ import com.example.daily_smarts.databinding.QuoteItemBinding;
 
 
 public class QuotesViewHolder extends RecyclerView.ViewHolder {
+
     QuoteItemBinding binding;
     QuoteEntity quoteEntity;
 
@@ -17,6 +18,7 @@ public class QuotesViewHolder extends RecyclerView.ViewHolder {
     public QuotesViewHolder(final QuoteItemBinding binding, final QuotesListener listener) {
         super(binding.getRoot());
         this.binding = binding;
+
         binding.btnLike.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

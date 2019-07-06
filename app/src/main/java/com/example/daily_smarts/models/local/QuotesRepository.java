@@ -37,6 +37,7 @@ public class QuotesRepository {
             }
         }.execute();
     }
+
     public LiveData<List<QuoteEntity>> getAllQuotes(){
         return allQuotes;
     }

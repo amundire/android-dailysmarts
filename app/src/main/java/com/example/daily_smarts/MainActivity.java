@@ -55,14 +55,13 @@ public class MainActivity extends AppCompatActivity implements MyQuotesFragment.
         }
     }
     private boolean hasInternetConnection() {
-        boolean connected = false;
+        boolean isConnected = false;
         ConnectivityManager connectivityManager = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_MOBILE).getState() == NetworkInfo.State.CONNECTED ||
                 connectivityManager.getNetworkInfo(ConnectivityManager.TYPE_WIFI).getState() == NetworkInfo.State.CONNECTED) {
-            //we are connected to a network
-            return connected = true;
+            return isConnected = true;
         } else {
-            return connected = false;
+            return isConnected = false;
         }
     }
 }

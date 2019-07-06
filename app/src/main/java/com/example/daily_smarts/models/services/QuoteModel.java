@@ -1,6 +1,7 @@
 package com.example.daily_smarts.models.services;
 
 public class QuoteModel {
+
     String quoteText;
     String quoteAuthor;
 
